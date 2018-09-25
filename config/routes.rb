@@ -1,3 +1,11 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :user
+  get  '/signup',  to: 'user#index'
+  post '/signup', to: 'user#create'
+
+  get '*path',    to: 'user#errorView'
+
+  get    '/login',   to: 'sessions#new'
+  post   '/login',   to: 'sessions#create'
+  root 'sessions#new'
 end

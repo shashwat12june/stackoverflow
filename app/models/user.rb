@@ -8,8 +8,8 @@ class User < ApplicationRecord
   UniquenessValidator
 
   validates :first_name, presence: true
-  validates :phone_number, length: { minimum: 10 }, uniqueness: true
-  validates :password, presence: true, confirmation: true, length: { minimum: 8 }
+  validates :phone_number, uniqueness: true
+  validates :password, presence: true, confirmation: true
   validates_confirmation_of :password
   has_secure_password
 end

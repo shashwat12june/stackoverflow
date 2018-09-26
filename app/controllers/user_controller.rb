@@ -23,6 +23,20 @@ class UserController < ApplicationController
     @user=User.find(params[:id])
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update_attributes(user_params)
+      flash[:success] = "Profile updated"
+      redirect_to @user
+    else
+      render 'edit'
+    end
+  end
+
   def addQuestion
     @users_question = Question.new(status:"new", user_id: current_user.id, question: params[:addQuestion][:question])
     if @users_question.save

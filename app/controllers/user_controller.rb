@@ -19,13 +19,21 @@ class UserController < ApplicationController
     end
   end
 
+  def show
+    @user=User.find(params[:id])
+  end
 
   def addQuestion
-   @users_question = Question.new(status:"new", user_id: current_user.id, question: params[:addQuestion][:question])
-   if @users_question.save
-     redirect_to home_path
-   end
+    @users_question = Question.new(status:"new", user_id: current_user.id, question: params[:addQuestion][:question])
+    if @users_question.save
+      redirect_to home_path
+    end
   end
+
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :email, :phone_number, :password, :password_confirmation)
+  end
+
 
   def home
   if  params[:search]
@@ -39,12 +47,4 @@ class UserController < ApplicationController
     render plain: "Url not found"
   end
 
-
-  def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :phone_number, :password, :password_confirmation)
-  end
-
-  def question_params
-    params.require(:addQuestion).permit(:question)
-  end
 end

@@ -3,5 +3,5 @@ class Question < ApplicationRecord
   has_many :answers
   has_many :comments, as: :commentable
   has_many :votes,as: :voteable
-  has_many :tags,as: :tagable
+  has_many :answer_question_tags,as: :tagable
 end

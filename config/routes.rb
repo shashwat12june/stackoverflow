@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
 
+  post  '/addQuestion', to:'user#addQuestion'
+
   get '*path',    to: 'user#errorView'
 
   root 'sessions#new'

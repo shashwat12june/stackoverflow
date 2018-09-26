@@ -1,0 +1,12 @@
+<h1>
+<%= render plain: @question.question %></h1>
+
+<h3>Answer</h3>
+<% @question.answers.all.each do |ans| %>
+
+  <tr>
+    <td><%=  ans.answer %></td>
+    <br>
+    <br>
+  </tr>
+<% end %>

@@ -1,0 +1,11 @@
+<tbody>
+<% Question.all.each do |ques| %>
+  <tr>
+    <td><%= link_to ques.question, { controller:'question',action:'show', id: ques.id} %></td>
+    </br>
+    <!--        <td><%#= link_to 'Show', user %></td>-->
+    <!--        <td><%#= link_to 'Edit', edit_user_path(user) %></td>-->
+<!--    <td><%#= %></td>-->
+  </tr>
+<% end %>
+</tbody>

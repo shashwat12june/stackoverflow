@@ -1,0 +1,24 @@
+
+<p>
+  <%= render 'question/askquestions' %>
+</p>
+<p>
+  <%= render 'question/search' %>
+</p>
+
+
+<% @questions.each do |ques| %>
+  <tr>
+    <td><%= link_to ques.question, { controller:'question',action:'show', id: ques.id} %></td>
+    </br>
+    <!--        <td><%#= link_to 'Show', user %></td>-->
+    <!--        <td><%#= link_to 'Edit', edit_user_path(user) %></td>-->
+    <!--    <td><%#= %></td>-->
+  </tr>
+<% end %>
+
+
+
+<p>
+  <%= link_to "Logout", logout_path %>
+</p>

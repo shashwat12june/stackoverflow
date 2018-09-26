@@ -23,6 +23,15 @@ class UserController < ApplicationController
     params.require(:user).permit(:first_name, :last_name, :email, :phone_number, :password, :password_confirmation)
   end
 
+
+  def home
+  if  params[:search]
+    @questions = Question.where("question LIKE ?", "%#{params[:search][:search]}%")
+  else
+    @questions = Question.all
+  end
+  end
+
   def errorView
     render plain: "Url not found"
   end

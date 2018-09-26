@@ -1,12 +1,50 @@
 <h1>
 <%= render plain: @question.question %></h1>
-
-<h3>Answer</h3>
-<% @question.answers.all.each do |ans| %>
-
+<h3>comments</h3>
+<% @question.comments.each do |comment| %>
   <tr>
-    <td><%=  ans.answer %></td>
+    <td>comment:    <%= comment.comment %></td>
+    <br>
+  </tr>
+<% end %>
+<br>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(:addComment, url:addcomment_path) do |f| %>
+      <%= f.hidden_field :commentable_type, value:"Question" %>
+      <%= f.hidden_field :commentable_id, value:@question.id %>
+      <%= f.hidden_field :ques_id, value:@question.id %>
+      <%= f.text_field :comment, class: 'form-control' %>
+      <%= f.submit "Add Comment", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
+<br>
+<h3>Answers</h3>
+<% @question.answers.all.each do |ans| %>
+  <br>
+  <tr>
+    <td><b>Answer: </b><%= ans.answer %></td>
     <br>
     <br>
+    <br>
+    <% ans.comments.all.each do |comment| %>
+    <tr>
+      <td><b>comments:     </b><%= comment.comment %></td>
+      <br>
+    </tr>
+    <br>
+  <% end %>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <%= form_for(:addComment, url:addcomment_path) do |f| %>
+        <%= f.hidden_field :commentable_type, value:"Answer" %>
+        <%= f.hidden_field :commentable_id, value:ans.id %>
+        <%= f.hidden_field :ques_id, value:@question.id %>
+        <%= f.text_field :comment, class: 'form-control' %>
+        <%= f.submit "Add Comment", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
   </tr>
 <% end %>

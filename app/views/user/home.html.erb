@@ -17,8 +17,12 @@
   </tr>
 <% end %>
 
-
-
+<p>
+  <%= link_to "Profile", user_path(current_user.id) %>
+</p>
+<p>
+  <%= link_to "Edit Profile", edit_user_path(current_user.id) %>
+</p>
 <p>
   <%= link_to "Logout", logout_path %>
 </p>

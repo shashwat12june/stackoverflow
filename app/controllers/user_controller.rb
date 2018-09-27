@@ -10,7 +10,7 @@ class UserController < ApplicationController
     respond_to do |format|
       if @user.save
         flash[:success] = "Welcome to the demo App!"
-        format.html { redirect_to root_url, notice: 'User was successfully created.' }
+        format.html { redirect_to home_path, notice: 'User was successfully created.' }
         format.json { render :index, status: :created, location: @user }
       else
         format.html { render :index }

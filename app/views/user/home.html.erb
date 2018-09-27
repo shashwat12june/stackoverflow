@@ -16,7 +16,7 @@
     <!--    <td><%#= %></td>-->
   </tr>
 <% end %>
-
+<% if logged_in? %>
 <p>
   <%= link_to "Profile", user_path(current_user.id) %>
 </p>
@@ -26,3 +26,4 @@
 <p>
   <%= link_to "Logout", logout_path %>
 </p>
+<%end %>

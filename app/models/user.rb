@@ -9,11 +9,8 @@ class User < ApplicationRecord
 
   validates :first_name, presence: true
   validates :phone_number, uniqueness: true
-  validates :password, presence: true, confirmation: true
+  validates :password, confirmation: true
   validates_confirmation_of :password
   has_secure_password
 
-  def full_name
-    self.first_name + " " + self.last_name
-  end
 end

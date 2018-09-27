@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+before_action :check_login, only: :new
+
   def new
   end
 
@@ -28,5 +30,13 @@ class SessionsController < ApplicationController
   def destroy
     log_out
     redirect_to root_url
+  end
+
+  def check_login
+    if(logged_in?)
+      redirect_to home_path
+    else
+      render 'new'
+    end
   end
 end

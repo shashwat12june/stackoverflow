@@ -2,8 +2,13 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_for(:addQuestion, url:addQuestion_path) do |f| %>
-      <%= f.text_field :question, class: 'form-control' %>
-      <%= f.submit "Ask question", class: "btn btn-primary" %>
+<tr>
+      <%= f.text_field :question, class: 'form-control', placeholder:"Enter your Question" %>
+    <%= f.submit "Ask question", class: "btn btn-primary" %>
+      <br>
+      <br>
+      <%= f.text_field :tags, class: 'form-control', placeholder:"enter tags" %>
+</tr>
     <% end %>
   </div>
 </div>

@@ -1,8 +1,22 @@
 
 <h1>
 <%= render plain: @question.question %></h1>
+<br>
+<% if logged_in? && @question.user_id==current_user.id %>
+  <%= link_to "Edit", edit_question_path(id:@question.id)%>
+  <%= link_to "Delete", question_path(@question.id), method: :delete, data: {confirmation: "are you sure?"}%>
+<%end %>
+<br>
+<h3>counts   :<%= render plain: @question.votes.where(vote_type:1).count %></h3>
+
+<tr>
+  <td> <%= link_to "upvote",{ controller:'votes',action:'create', voteable_id:@question.id, voteable_type:"Question", vote_type:1, question_id:@question.id}, method: :post %></td>
+  <td> <%= link_to "down vote",{ controller:'votes',action:'create', voteable_id:@question.id, voteable_type:"Question",vote_type:-1,question_id:@question.id}, method: :post %></td>
+  <br>
+</tr>
 <h3>comments</h3>
 <% @question.comments.each do |comment| %>
+
   <tr>
     <td>comment:    <%= comment.comment %></td>
     <br>
@@ -28,11 +42,18 @@
   <tr>
     <td><b>Answer: </b><%= ans.answer %></td>
     <br>
+    <h3>counts   :<%= render plain: ans.votes.where(vote_type:1).count %></h3>
+
+  <tr>
+    <td> <%= link_to "upvote",{ controller:'votes',action:'create', voteable_id:ans.id, voteable_type:"Answer", vote_type:1, question_id:@question.id}, method: :post %></td>
+    <td> <%= link_to "down vote",{ controller:'votes',action:'create', voteable_id:ans.id, voteable_type:"Answer",vote_type:-1, question_id:@question.id}, method: :post %></td>
+    <br>
+  </tr>
     <td>
-    <% if ans.status==1 %>
+    <% if ans.status=="accepted" %>
       <%= render plain: "Accepted" %>
     <%end %>
-    </td>
+     </td>
     <td>
       <% if logged_in? && @question.user_id==current_user.id %>
         <%= link_to "Accept it",{ controller:'answer',action:'acceptAnswer', id: ans.id, question_id:@question.id} %>

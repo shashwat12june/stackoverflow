@@ -10,7 +10,7 @@ class UserController < ApplicationController
     respond_to do |format|
       if @user.save
         flash[:success] = "Welcome to the demo App!"
-        format.html { redirect_to home_path, notice: 'User was successfully created.' }
+        format.html { redirect_to login_path, notice: 'User was successfully created.' }
         format.json { render :index, status: :created, location: @user }
       else
         format.html { render :index }
@@ -20,11 +20,19 @@ class UserController < ApplicationController
   end
 
   def show
+    if ((!Question.exists?(params[:id])))
+      render plain: 'Question not found'
+    else
     @user=User.find(params[:id])
+    end
   end
 
   def edit
-    @user = User.find(params[:id])
+    if (current_user.id==params[:id].to_i)
+      @user=User.find(params[:id])
+    else
+      render plain: 'invalid access'
+    end
   end
 
   def update
@@ -37,12 +45,6 @@ class UserController < ApplicationController
     end
   end
 
-  def addQuestion
-    @users_question = Question.new(status:"new", user_id: current_user.id, question: params[:addQuestion][:question])
-    if @users_question.save
-      redirect_to home_path
-    end
-  end
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :email, :phone_number, :password, :password_confirmation)

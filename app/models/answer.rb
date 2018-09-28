@@ -6,4 +6,6 @@ class Answer < ApplicationRecord
   has_many :answer_question_tags, as: :tagable
 
   enum status: [:accepted, :notaccepted]
+
+  validates :answer, presence: true
 end

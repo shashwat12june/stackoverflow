@@ -3,14 +3,14 @@ User.create!(id: 0,
              first_name:  "example",
              last_name: "user",
              email: "example@railstutorial.org",
-             phone_number: "9898898",
+             phone_number: "9898898123",
              password: "foobar")
 
 49.times do |n|
   first_name  = Faker::Name.first_name
   last_name =  Faker::Name.last_name
   email = Faker::Internet.email
-  phone_number = Faker::PhoneNumber.phone_number
+  phone_number = Faker::Number.number(10)
   password_digest = Faker::Internet.password
   User.create!(first_name:  first_name,
                last_name: last_name,

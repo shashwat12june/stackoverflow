@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :user
   resources :question
+  resources :votes
 
   get  '/signup',  to: 'user#index'
   post '/signup', to: 'user#create'
@@ -16,8 +17,10 @@ Rails.application.routes.draw do
   post '/addComment', to: 'comment#create'
   post '/addAnswer', to: 'answer#create'
 
-  post  '/addQuestion', to:'user#addQuestion'
+  post  '/addQuestion', to:'question#addQuestion'
   get  '/acceptAnswer', to:'answer#acceptAnswer'
+
+  post 'vote/create',  to: 'votes_controller#create'
 
   get '*path',    to: 'user#errorView'
 

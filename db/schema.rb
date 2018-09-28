@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_27_044925) do
+ActiveRecord::Schema.define(version: 2018_09_27_193934) do
 
   create_table "answer_question_tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "tag_id"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2018_09_27_044925) do
   end
 
   create_table "answers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.text "answer"
+    t.text "answer", null: false
     t.integer "status", default: 0
     t.integer "vote_count", default: 0
     t.bigint "question_id"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 2018_09_27_044925) do
   end
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.text "comment"
+    t.text "comment", null: false
     t.bigint "user_id"
     t.string "commentable_type"
     t.bigint "commentable_id"
@@ -46,13 +46,20 @@ ActiveRecord::Schema.define(version: 2018_09_27_044925) do
   end
 
   create_table "questions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.text "question"
+    t.text "question", null: false
     t.string "status"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "vote_count"
     t.index ["user_id"], name: "index_questions_on_user_id"
+  end
+
+  create_table "questions_tags", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "question_id"
+    t.bigint "tag_id"
+    t.index ["question_id"], name: "index_questions_tags_on_question_id"
+    t.index ["tag_id"], name: "index_questions_tags_on_tag_id"
   end
 
   create_table "tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -62,13 +69,15 @@ ActiveRecord::Schema.define(version: 2018_09_27_044925) do
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "email"
-    t.string "phone_number"
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "email", null: false
+    t.string "phone_number", null: false
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email"
+    t.index ["phone_number"], name: "index_users_on_phone_number"
   end
 
   create_table "votes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -88,5 +97,7 @@ ActiveRecord::Schema.define(version: 2018_09_27_044925) do
   add_foreign_key "answers", "users"
   add_foreign_key "comments", "users"
   add_foreign_key "questions", "users"
+  add_foreign_key "questions_tags", "questions"
+  add_foreign_key "questions_tags", "tags"
   add_foreign_key "votes", "users"
 end

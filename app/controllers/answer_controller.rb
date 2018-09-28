@@ -11,7 +11,7 @@ class AnswerController < ApplicationController
 
   def acceptAnswer
     @answer = Answer.find(params[:id])
-    @answer.update(status:1)
+    @answer.update(status:0)
     redirect_to question_path(params[:question_id])
   end
 end

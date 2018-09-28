@@ -3,6 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gem 'bcrypt',   '3.1.11'
 gem 'bootsnap', '>= 1.1.0', require: false
 ruby '2.4.3'
+gem 'will_paginate',           '3.1.0'
+gem 'bootstrap-will_paginate'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.1'

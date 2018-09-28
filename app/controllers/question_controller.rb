@@ -12,14 +12,11 @@ class QuestionController < ApplicationController
     end
   end
 
-
-
   def addQuestion
     @users_question = Question.new(status:"new", user_id: current_user.id, question: params[:addQuestion][:question])
     if @users_question.save
       if !params[:addQuestion][:tags].nil?
         @tags = params[:addQuestion][:tags].split(" ")
-        debugger
         @tags.each do |tag|
           t= Tag.new(tag_name:tag)
           t.save!
@@ -33,6 +30,15 @@ class QuestionController < ApplicationController
 
   def edit
     @question = Question.find(params[:id])
+  end
+
+
+  def home
+    if  params[:search]
+      @question = Question.where("question LIKE ?", "%#{params[:search][:search]}%").paginate(page: params[:page], per_page:20)
+    else
+      @question = Question.paginate(page: params[:page], per_page:20)
+    end
   end
 
 
@@ -53,5 +59,7 @@ class QuestionController < ApplicationController
     else
        render 'show'
     end
-   end
+  end
+
+
   end

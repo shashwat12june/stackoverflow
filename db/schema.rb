@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_27_193934) do
+ActiveRecord::Schema.define(version: 2018_09_28_200600) do
 
   create_table "answer_question_tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "tag_id"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2018_09_27_193934) do
 
   create_table "answers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "answer", null: false
-    t.integer "status", default: 0
+    t.integer "status", default: 1
     t.integer "vote_count", default: 0
     t.bigint "question_id"
     t.bigint "user_id"

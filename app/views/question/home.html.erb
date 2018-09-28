@@ -6,16 +6,15 @@
   <%= render 'question/search' %>
 </p>
 
-
-<% @questions.each do |ques| %>
+<%= will_paginate @question %>
+<ul class="users">
+<% @question.each do |ques| %>
   <tr>
     <td><%= link_to ques.question, { controller:'question',action:'show', id: ques.id} %></td>
     </br>
-    <!--        <td><%#= link_to 'Show', user %></td>-->
-    <!--        <td><%#= link_to 'Edit', edit_user_path(user) %></td>-->
-    <!--    <td><%#= %></td>-->
   </tr>
 <% end %>
+</ul>
 <% if logged_in? %>
 <p>
   <%= link_to "Profile", user_path(current_user.id) %>

@@ -15,4 +15,5 @@ class ApplicationController < ActionController::Base
       log_out
     end
   end
+
 end

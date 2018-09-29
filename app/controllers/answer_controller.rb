@@ -1,6 +1,7 @@
 class AnswerController < ApplicationController
 
-  before_action :logged_in_user, :session_timeout, only: [ :create]
+  before_action :logged_in_user, only: [ :create, :acceptAnswer]
+
   def create
     @answer = Answer.new(answer: params[:addAnswer][:answer], user_id: current_user.id,
                            question_id:params[:addAnswer][:ques_id])

@@ -15,20 +15,12 @@ before_action :check_login, only: :new
     end
   end
 
-    #
-    # def logged_in?
-    #  if current_user.nil?
-    #    render 'new'
-    #  else
-    #    redirect_to home_path
-    #  end
-    # end
-
 
   def destroy
     log_out
     redirect_to root_url
   end
+
 
   def check_login
     if(logged_in?)

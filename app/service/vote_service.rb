@@ -7,6 +7,7 @@ class Vote_service
       @user_id = params[:user_id]
     end
 
+
     def upvote
       if already_downvote?
         remove_downvote
@@ -17,6 +18,7 @@ class Vote_service
       end
     end
 
+
     def downvote
       if already_upvote?
         remove_upvote
@@ -25,8 +27,8 @@ class Vote_service
       else
         cast_vote(-1)
       end
-
     end
+
 
     def remove_upvote
       if already_upvote?
@@ -41,6 +43,7 @@ class Vote_service
       end
     end
 
+
     def already_upvote?
       if user_exist? && find_value.vote_type == 1
         return true
@@ -49,6 +52,7 @@ class Vote_service
       end
     end
 
+
     def already_downvote?
       if user_exist? && find_value.vote_type == -1
         return true
@@ -56,6 +60,7 @@ class Vote_service
         return false
       end
     end
+
 
     def already_zero_state?
       if user_exist? && find_value.vote_type == 0
@@ -76,14 +81,17 @@ class Vote_service
       end
     end
 
+
     def cast_vote(vote)
       @vote = Vote.new(user_id: @user_id, voteable_id: @voteable_id, vote_type: vote, voteable_type: @voteable_type)
       @vote.save!
     end
 
+
     def update_vote(v, vote)
       v.update!(vote_type: vote)
     end
+
 
     def find_value
       v = Vote.where(user_id: @user_id, voteable_id: @voteable_id, voteable_type: @voteable_type).first

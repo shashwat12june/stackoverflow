@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 2018_09_28_200600) do
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
-  create_table "questions_tags", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "questions_tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "question_id"
     t.bigint "tag_id"
     t.index ["question_id"], name: "index_questions_tags_on_question_id"

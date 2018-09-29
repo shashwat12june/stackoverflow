@@ -1,8 +1,11 @@
 class QuestionController < ApplicationController
-  before_action :logged_in_user, :session_timeout, only: [ :addQuestion]
+  before_action :logged_in_user, only: [ :addQuestion]
+
+
   def index
-    @question = Question.new
+    @question = Question.paginate(page: params[:page])
   end
+
 
   def show
     if ((!Question.exists?(params[:id])))
@@ -12,33 +15,34 @@ class QuestionController < ApplicationController
     end
   end
 
+
   def addQuestion
     @users_question = Question.new(status:"new", user_id: current_user.id, question: params[:addQuestion][:question])
     if @users_question.save
-      if !params[:addQuestion][:tags].nil?
-        @tags = params[:addQuestion][:tags].split(" ")
-        @tags.each do |tag|
-          t= Tag.new(tag_name:tag)
-          t.save!
-          @users_question.tags << t
-        end
-      end
+         add_tag(params)
+         debugger
       redirect_to home_path
+    else
+      flash[:info] = " Question exists"
+      redirect_to home_path
+    end
+  end
+
+
+  def add_tag(params)
+    if !params[:addQuestion][:tags].nil?
+      @tags = params[:addQuestion][:tags].split(" ")
+      @tags.each do |tag|
+        t= Tag.new(tag_name:tag)
+        t.save!
+        @users_question.tags << t
+      end
     end
   end
 
 
   def edit
     @question = Question.find(params[:id])
-  end
-
-
-  def home
-    if  params[:search]
-      @question = Question.where("question LIKE ?", "%#{params[:search][:search]}%").paginate(page: params[:page], per_page:20)
-    else
-      @question = Question.paginate(page: params[:page], per_page:20)
-    end
   end
 
 
@@ -51,6 +55,7 @@ class QuestionController < ApplicationController
       render 'edit'
     end
   end
+
 
   def destroy
     @question = Question.find(params[:id])

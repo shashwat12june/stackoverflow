@@ -1,5 +1,5 @@
 class CommentController < ApplicationController
- before_action :logged_in_user, :session_timeout, only: [ :create]
+ before_action :logged_in_user, only: [ :create]
   def create
     @comment = Comment.new(comment: params[:addComment][:comment], user_id: current_user.id,
                            commentable_type:params[:addComment][:commentable_type],

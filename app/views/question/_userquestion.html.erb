@@ -3,6 +3,9 @@
     <tr>
       <td>Question:<%=question.id+1 %></td>
       <td><%= link_to question.question, { controller:'question',action:'show', id: question.id} %></td>
-      <td>Votes(<%= question.votes.count%>)</td>
+      <% upvote = question.votes.where(vote_type:1).count%>
+      <% downvote = question.votes.where(vote_type:-1).count%>
+      <% vote_count = upvote-downvote %>
+      <td>Votes(<%= vote_count%>)</td>
   </table>
 <% end %>

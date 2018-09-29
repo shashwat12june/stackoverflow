@@ -1,5 +1,5 @@
 class VotesController < ApplicationController
-  before_action :logged_in_user, :session_timeout, only: [ :create]
+  before_action :logged_in_user, only: [ :create]
 
   def create
     if (params[:vote_type]=='1')

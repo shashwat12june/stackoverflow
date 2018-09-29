@@ -8,7 +8,10 @@ class User < ApplicationRecord
   UniquenessValidator
 
   validates :first_name, presence: true
-  validates :phone_number, uniqueness: true
+
+  VALID_PHONE_NUMBER_REGEX = /[0-9]*/
+  validates :phone_number, uniqueness: true, presence: true, length: {is: 10},
+            format: { with: VALID_PHONE_NUMBER_REGEX,  message: "Phone number should be of 10 digits"}
   validates :password, confirmation: true
   validates_confirmation_of :password
   has_secure_password

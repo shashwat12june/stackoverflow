@@ -1,28 +1,28 @@
 Rails.application.routes.draw do
-  resources :user
-  resources :question
+  resources :users
+  resources :questions
   resources :votes
 
-  get  '/signup',  to: 'user#index'
-  post '/signup', to: 'user#create'
+  get  '/signup',  to: 'users#index'
+  post '/signup', to: 'users#create'
 
-  get '/home',    to:'user#home'
-  post '/home',    to:'user#home'
+  get '/home',    to:'users#home'
+  post '/home',    to:'users#home'
 
   get '/logout', to: 'sessions#destroy'
 
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
 
-  post '/addComment', to: 'comment#create'
-  post '/add_answer', to: 'answer#create'
+  post '/addComment', to: 'comments#create'
+  post '/add_answer', to: 'answers#create'
 
-  post  '/add_question', to:'question#add_question'
-  get  '/accept_answer', to:'answer#accept_answer'
+  post  '/add_question', to:'questions#add_question'
+  get  '/accept_answer', to:'answers#accept_answer'
 
   post 'vote/create',  to: 'votes_controller#create'
 
-  get '*path',    to: 'user#errorView'
+  get '*path',    to: 'users#errorView'
 
   root 'sessions#new'
 end

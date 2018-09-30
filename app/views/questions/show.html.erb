@@ -21,9 +21,13 @@
 <h3>vote count   :<%= render plain: vote_count %></h3>
 
 <tr>
-  <td> <%= link_to "upvote",{ controller:'votes',action:'create', voteable_id:@question.id, voteable_type:"Question", vote_type:1, question_id:@question.id}, method: :post %></td>
+  <td> <%= link_to "upvote",{ controller:'votes',action:'create', voteable_id:@question.id,
+                              voteable_type:"Question", vote_type:1, question_id:@question.id},
+                   method: :post, remote:true %></td>
   <br>
-  <td> <%= link_to "down vote",{ controller:'votes',action:'create', voteable_id:@question.id, voteable_type:"Question",vote_type:-1,question_id:@question.id}, method: :post %></td>
+  <td> <%= link_to "down vote",{ controller:'votes',action:'create',
+                                 voteable_id:@question.id, voteable_type:"Question",vote_type:-1,
+                                 question_id:@question.id}, method: :post, remote:true %></td>
   <br>
 </tr>
 
@@ -42,7 +46,7 @@
       <%= f.hidden_field :commentable_type, value:"Question" %>
       <%= f.hidden_field :commentable_id, value:@question.id %>
       <%= f.hidden_field :ques_id, value:@question.id %>
-      <%= f.text_field :comment, class: 'form-control' %>
+      <%= f.text_field :comments, class: 'form-control' %>
       <%= f.submit "Add Comment", class: "btn btn-primary" %>
     <% end %>
   </div>
@@ -71,7 +75,7 @@
      </td>
     <td>
       <% if logged_in? && @question.user_id==current_user.id %>
-        <%= link_to "Accept it",{ controller:'answer',action:'accept_answer', id: ans.id, question_id:@question.id} %>
+        <%= link_to "Accept it",{controller: 'answers', action:'accept_answer', id: ans.id, question_id:@question.id} %>
       <%end %>
     </td>
     <br>
@@ -89,7 +93,7 @@
         <%= f.hidden_field :commentable_type, value:"Answer" %>
         <%= f.hidden_field :commentable_id, value:ans.id %>
         <%= f.hidden_field :ques_id, value:@question.id %>
-        <%= f.text_field :comment, class: 'form-control' %>
+        <%= f.text_field :comments, class: 'form-control' %>
         <%= f.submit "Add Comment", class: "btn btn-primary" %>
       <% end %>
     </div>
@@ -103,7 +107,7 @@
     <%= form_for(:addAnswer, url:add_answer_path) do |f| %>
       <%= f.hidden_field :ques_id, value:@question.id %>
       <%= f.text_field :answer, class: 'form-control' %>
-      <%= f.submit "Add answer", class: "btn btn-primary" %>
+      <%= f.submit "Add answers", class: "btn btn-primary" %>
     <% end %>
   </div>
 </div>

@@ -1,4 +1,4 @@
-class QuestionController < ApplicationController
+class QuestionsController < ApplicationController
   before_action :logged_in_user, only: [ :add_question]
 
 
@@ -17,7 +17,7 @@ class QuestionController < ApplicationController
 
 
   def add_question
-    @users_question = Question.new(status:"new", user_id: current_user.id, question: params[:addQuestion][:question])
+    @users_question = Question.new(status:"new", user_id: current_user.id, question: params[:addQuestion][:questions])
     if @users_question.save
       if !params[:addQuestion][:tags].nil?
          tag_service.add_tag

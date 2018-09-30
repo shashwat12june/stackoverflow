@@ -4,7 +4,7 @@
 <table>
   <tr>
     <td>Question:<%=ques.id+1 %></td>
-    <td><%= link_to ques.question, { controller:'question',action:'show', id: ques.id} %></td>
+    <td><%= link_to ques.question, {controller: 'questions', action:'show', id: ques.id} %></td>
   </tr>
 </table>
 <% end %>

@@ -1,0 +1,46 @@
+
+<p>
+  <%= render 'questions/askquestions' %>
+</p>
+<p>
+  <%= render 'questions/search' %>
+</p>
+
+<%= will_paginate @question %>
+<ul class="users">
+  <% @question.each do |ques| %>
+    <tr>
+      <td><%= link_to ques.question, {controller: 'questions', action:'show', id: ques.id} %></td>
+      </br>
+    </tr>
+  <% end %>
+</ul>
+<br>
+<% if @related_questions %>
+  <h3>Related Question:</h3>
+<% @related_questions.each do |ques| %>
+  <tr>
+    <td><%= link_to ques.question, {controller: 'questions', action:'show', id: ques.id} %></td>
+    </br>
+  </tr>
+<% end %>
+<% end %>
+</ul>
+
+
+
+<%# if logged_in? %>
+<!--<p>-->
+  <%#= link_to "Profile", user_path(current_user.id) %>
+<!--</p>-->
+
+<!--<p>-->
+  <%#= link_to "Edit Profile", edit_user_path(current_user.id) %>
+<!--</p>-->
+<!--<p>-->
+  <%#= link_to "Logout", logout_path %>
+<!--</p>-->
+<!--  <p>-->
+    <%#= link_to "Users", users_path %>
+<!--  </p>-->
+<%#end %>

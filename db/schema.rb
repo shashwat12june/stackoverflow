@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_28_200600) do
+ActiveRecord::Schema.define(version: 2018_09_30_112705) do
 
   create_table "answer_question_tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "tag_id"
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 2018_09_28_200600) do
     t.string "tag_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["tag_name"], name: "index_tags_on_tag_name", unique: true
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

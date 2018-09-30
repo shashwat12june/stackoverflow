@@ -1,4 +1,4 @@
-class UserController < ApplicationController
+class UsersController < ApplicationController
 
   before_action :logged_in_user, only: [ :edit, :update, :destroy, :show]
 
@@ -57,7 +57,7 @@ class UserController < ApplicationController
 
 
   def edit
-    if (current_user.id==params[:id].to_i)
+    if (logged_in? && current_user.id==params[:id].to_i)
       @user=User.find(params[:id])
     else
       render plain: 'invalid access'
@@ -83,5 +83,6 @@ class UserController < ApplicationController
   def errorView
     render plain: "Url not found"
   end
+
 
 end

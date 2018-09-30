@@ -16,18 +16,18 @@ module SessionsHelper
     cookies.delete(:remember_token)
   end
 
-  # Remembers a user in a persistent session.
-  # def remember(user)
-  #   user.remember
-  #   cookies.permanent.signed[:user_id] = user.id
-  #   cookies.permanent[:remember_token] = user.remember_token
+  # Remembers a users in a persistent session.
+  # def remember(users)
+  #   users.remember
+  #   cookies.permanent.signed[:user_id] = users.id
+  #   cookies.permanent[:remember_token] = users.remember_token
   # end
 
   def current_user?(user)
     user == current_user
   end
 
-  # Returns the user corresponding to the remember token cookie.
+  # Returns the users corresponding to the remember token cookie.
   def current_user
     if (user_id = session[:user_id])
       @current_user ||= User.find_by(id: user_id)

@@ -15,10 +15,10 @@ Rails.application.routes.draw do
   post   '/login',   to: 'sessions#create'
 
   post '/addComment', to: 'comment#create'
-  post '/addAnswer', to: 'answer#create'
+  post '/add_answer', to: 'answer#create'
 
-  post  '/addQuestion', to:'question#addQuestion'
-  get  '/acceptAnswer', to:'answer#acceptAnswer'
+  post  '/add_question', to:'question#add_question'
+  get  '/accept_answer', to:'answer#accept_answer'
 
   post 'vote/create',  to: 'votes_controller#create'
 

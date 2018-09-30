@@ -26,6 +26,7 @@ class VotesController < ApplicationController
     end
   end
 
+
   def downvote
     if vote_service.already_downvote?
       flash.notice = "already downvoted"
@@ -35,8 +36,10 @@ class VotesController < ApplicationController
     end
   end
 
+
   def getParams
     @params = {vote_type: params[:vote_type], user_id: current_user.id,
                voteable_id: params[:voteable_id], voteable_type: params[:voteable_type]}
   end
+
 end

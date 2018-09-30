@@ -1,5 +1,5 @@
 class QuestionController < ApplicationController
-  before_action :logged_in_user, only: [ :addQuestion]
+  before_action :logged_in_user, only: [ :add_question]
 
 
   def index
@@ -16,11 +16,12 @@ class QuestionController < ApplicationController
   end
 
 
-  def addQuestion
+  def add_question
     @users_question = Question.new(status:"new", user_id: current_user.id, question: params[:addQuestion][:question])
     if @users_question.save
-         add_tag(params)
-         debugger
+      if !params[:addQuestion][:tags].nil?
+         tag_service.add_tag
+         end
       redirect_to home_path
     else
       flash[:info] = " Question exists"
@@ -29,15 +30,8 @@ class QuestionController < ApplicationController
   end
 
 
-  def add_tag(params)
-    if !params[:addQuestion][:tags].nil?
-      @tags = params[:addQuestion][:tags].split(" ")
-      @tags.each do |tag|
-        t= Tag.new(tag_name:tag)
-        t.save!
-        @users_question.tags << t
-      end
-    end
+  def tag_service
+    Tag_service.new(getParams)
   end
 
 
@@ -57,6 +51,11 @@ class QuestionController < ApplicationController
   end
 
 
+  def getParams
+    @params = {users_question: @users_question, tag:params[:addQuestion][:tags]}
+  end
+
+
   def destroy
     @question = Question.find(params[:id])
     if @question.destroy
@@ -66,5 +65,4 @@ class QuestionController < ApplicationController
     end
   end
 
-
-  end
+end

@@ -1,6 +1,6 @@
 class AnswerController < ApplicationController
 
-  before_action :logged_in_user, only: [ :create, :acceptAnswer]
+  before_action :logged_in_user, only: [ :create, :accept_answer]
 
   def create
     @answer = Answer.new(answer: params[:addAnswer][:answer], user_id: current_user.id,
@@ -10,9 +10,13 @@ class AnswerController < ApplicationController
     end
   end
 
-  def acceptAnswer
+  def accept_answer
     @answer = Answer.find(params[:id])
-    @answer.update(status:0)
+    if @answer.status=="accepted"
+       @answer.update(status:1)
+    else
+       @answer.update(status:0)
+    end
     redirect_to question_path(params[:question_id])
   end
 end

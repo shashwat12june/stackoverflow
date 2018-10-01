@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :users
   resources :questions
   resources :votes
+  resources :answers
 
   get  '/signup',  to: 'users#index'
   post '/signup', to: 'users#create'

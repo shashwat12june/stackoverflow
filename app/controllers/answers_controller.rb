@@ -22,4 +22,31 @@ class AnswersController < ApplicationController
     redirect_to question_path(params[:question_id])
   end
 
+
+  def edit
+    @answer = Answer.find(params[:id])
+   @question = Question.find(params[:question_id])
+  end
+
+
+  def update
+    @answer = Answer.find(params[:id])
+    if @answer.update_attributes(answer: params[:answer][:answer])
+      flash[:success] = "Answer updated"
+      redirect_to question_path(params[:answer][:question_id])
+    else
+      render 'edit'
+    end
+  end
+
+
+  def destroy
+    @answer = Answer.find(params[:id])
+    if @answer.destroy
+      redirect_to question_path(params[:question_id])
+    else
+      render 'show'
+    end
+  end
+
 end

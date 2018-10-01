@@ -58,6 +58,11 @@
   <tr>
     <td><b>Answer: </b><%= ans.answer %></td>
     <br>
+    <% if logged_in? && ans.user_id==current_user.id %>
+      <%= link_to "Edit", edit_answer_path(id:ans.id, question_id:@question.id)%>
+      <%= link_to "Delete", answer_path(ans.id, question_id:@question.id), method: :delete, data: {confirm: "are you sure?"}%>
+    <%end %>
+    <br>
     <% upvote = ans.votes.where(vote_type:1).count%>
     <% downvote = ans.votes.where(vote_type:-1).count%>
     <% vote_count = upvote-downvote %>

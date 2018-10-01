@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_30_112705) do
+ActiveRecord::Schema.define(version: 2018_10_01_094046) do
 
   create_table "answer_question_tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "tag_id"
@@ -62,6 +62,16 @@ ActiveRecord::Schema.define(version: 2018_09_30_112705) do
     t.index ["tag_id"], name: "index_questions_tags_on_tag_id"
   end
 
+  create_table "sessions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "authentication_token"
+    t.integer "status"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["authentication_token"], name: "index_sessions_on_authentication_token", unique: true
+    t.index ["user_id"], name: "index_sessions_on_user_id"
+  end
+
   create_table "tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "tag_name"
     t.datetime "created_at", null: false
@@ -100,5 +110,6 @@ ActiveRecord::Schema.define(version: 2018_09_30_112705) do
   add_foreign_key "questions", "users"
   add_foreign_key "questions_tags", "questions"
   add_foreign_key "questions_tags", "tags"
+  add_foreign_key "sessions", "users"
   add_foreign_key "votes", "users"
 end

@@ -1,13 +1,19 @@
 module SessionsHelper
 
   def log_in(user)
-    session[:user_id] = user.id
+    session[:user_id] = user
     session[:expires_at] = Time.current + 60.minutes
   end
 
 
   def logged_in?
-    !current_user.nil?
+   if !current_user.nil?
+     if Session.find_by(authentication_token: session[:user_id]).status == 1
+       return true
+     else
+       return false
+     end
+   end
   end
 
 
@@ -16,31 +22,25 @@ module SessionsHelper
     cookies.delete(:remember_token)
   end
 
-  # Remembers a users in a persistent session.
-  # def remember(users)
-  #   users.remember
-  #   cookies.permanent.signed[:user_id] = users.id
-  #   cookies.permanent[:remember_token] = users.remember_token
-  # end
+
 
   def current_user?(user)
     user == current_user
   end
 
-  # Returns the users corresponding to the remember token cookie.
+
   def current_user
     if (user_id = session[:user_id])
-      @current_user ||= User.find_by(id: user_id)
-    elsif (user_id = cookies.signed[:user_id])
-      user = User.find_by(id: user_id)
-      if user && user.authenticated?(cookies[:remember_token])
+      if Session.exists?(authentication_token: user_id)
+        @current_user ||= User.find(Session.find_by(authentication_token: user_id).user_id)
       end
-      log_in user
-      @current_user = user
-    end
+      end
   end
 
+
   def log_out
+    s = Session.find_by(authentication_token:session[:user_id])
+    s.update(status:0)
     forget(current_user)
     session.delete(:user_id)
     @current_user = nil

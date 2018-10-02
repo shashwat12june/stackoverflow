@@ -1,7 +1,8 @@
-
+<% if logged_in? %>
 <p>
   <%= render 'questions/askquestions' %>
 </p>
+<%end%>
 <p>
   <%= render 'questions/search' %>
 </p>

@@ -8,11 +8,13 @@ class QuestionsController < ApplicationController
 
 
   def show
-    if ((!Question.exists?(params[:id])))
-      render plain: 'Question not found'
-    else
     @question = Question.find(params[:id])
+    if !@question
+      render json: {
+          error: "Question with id #{params[:id]} not found."
+      }, status: :not_found
     end
+
   end
 
 
@@ -24,7 +26,7 @@ class QuestionsController < ApplicationController
          end
       redirect_to home_path
     else
-      flash[:info] = " Question exists"
+      flash[:info] = " Question not saved"
       redirect_to home_path
     end
   end

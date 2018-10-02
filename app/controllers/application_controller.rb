@@ -1,6 +1,10 @@
 class ApplicationController < ActionController::Base
 
   include SessionsHelper
+  protect_from_forgery with: :exception
+  include Error::ErrorHandler
+
+
   private
 
   def logged_in_user
@@ -14,5 +18,6 @@ class ApplicationController < ActionController::Base
       log_out
     end
   end
+
 
 end

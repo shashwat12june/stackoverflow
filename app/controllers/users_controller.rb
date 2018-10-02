@@ -6,6 +6,7 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+
   def create
     @user = User.new(user_params)
     respond_to do |format|
@@ -22,10 +23,11 @@ class UsersController < ApplicationController
 
 
   def show
-    if ((!User.exists?(params[:id])))
-      render plain: 'User not found'
-    else
     @user=User.find(params[:id])
+    if !@user
+      render json: {
+          error: "User with id #{params[:id]} not found."
+      }, status: :not_found
     end
   end
 
@@ -52,6 +54,7 @@ class UsersController < ApplicationController
         end
       end
     end
+    #debugger
     return @related_questions
   end
 
@@ -63,6 +66,7 @@ class UsersController < ApplicationController
       render plain: 'invalid access'
     end
   end
+
 
   def update
     @user = User.find(params[:id])

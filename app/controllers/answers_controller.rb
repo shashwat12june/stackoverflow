@@ -8,6 +8,9 @@ class AnswersController < ApplicationController
                          question_id:params[:addAnswer][:ques_id])
     if @answer.save
       redirect_to question_path(params[:addAnswer][:ques_id])
+    else
+      flash.notice = "Answer not saved"
+      redirect_to question_path(params[:addAnswer][:ques_id])
     end
   end
 
@@ -26,6 +29,10 @@ class AnswersController < ApplicationController
   def edit
     @answer = Answer.find(params[:id])
    @question = Question.find(params[:question_id])
+    if !(logged_in? && current_user.id==@answer.user_id)
+      render plain: 'invalid access'
+    end
+
   end
 
 

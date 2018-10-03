@@ -18,7 +18,7 @@ class VotesController < ApplicationController
 
 
   def vote_service
-     Vote_service.new(getParams)
+     VoteService.new(getParams)
   end
 
 

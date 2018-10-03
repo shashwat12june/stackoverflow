@@ -33,12 +33,15 @@ class QuestionsController < ApplicationController
 
 
   def tag_service
-    Tag_service.new(getParams)
+    TagService.new(get_params)
   end
 
 
   def edit
     @question = Question.find(params[:id])
+    if !(logged_in? && current_user.id==@question.user_id)
+      render plain: 'invalid access'
+    end
   end
 
 
@@ -53,7 +56,7 @@ class QuestionsController < ApplicationController
   end
 
 
-  def getParams
+  def get_params
     @params = {users_question: @users_question, tag:params[:addQuestion][:tags]}
   end
 

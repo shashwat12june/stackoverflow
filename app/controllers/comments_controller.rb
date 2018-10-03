@@ -7,6 +7,9 @@ class CommentsController < ApplicationController
                            commentable_id:params[:addComment][:commentable_id])
     if @comment.save
       redirect_to question_path(params[:addComment][:ques_id])
+    else
+      flash.notice = "comments not saved"
+      redirect_to question_path(params[:addComment][:ques_id])
     end
   end
 

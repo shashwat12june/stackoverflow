@@ -1,4 +1,4 @@
-class Tag_service
+class TagService
 
   def initialize(params)
    @tag = params[:tag]
@@ -8,7 +8,7 @@ class Tag_service
   def add_tag
     @tags = @tag.split(" ")
     @tags.each do |tag|
-      if check_if_tag_exists(tag)
+      if check_if_tag_exists?(tag)
         add_question_to_existing_tag tag
       else
         create_new_tag tag
@@ -30,8 +30,8 @@ class Tag_service
   end
 
 
-  def check_if_tag_exists(tag)
-    Tag.exists?(tag_name:tag)
+  def check_if_tag_exists?(tag)
+    Tag.where(tag_name:tag).present?
   end
 
 end

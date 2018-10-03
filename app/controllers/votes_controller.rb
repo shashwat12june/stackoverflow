@@ -1,5 +1,9 @@
 class VotesController < ApplicationController
-  before_action :logged_in_user, only: [ :create]
+  before_action :logged_in_user, only: [ :create, :index]
+
+  def index
+
+  end
 
   def create
     if (params[:vote_type]=='1')

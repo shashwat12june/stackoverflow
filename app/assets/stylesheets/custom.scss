@@ -12,11 +12,11 @@ html {
 
 body {
   height: 100%;
-  background: -webkit-linear-gradient(40deg, #4CB8C4 10%, #EAECC6 100%);
+  #background: -webkit-linear-gradient(40deg, #4CB8C4 10%, #EAECC6 100%);
   background: -moz-linear-gradient(40deg, #4CB8C4 10%, #EAECC6 100%);
   background: -ms-linear-gradient(40deg, #4CB8C4 10%, #EAECC6 100%);
-  background: -o-linear-gradient(40deg, #4CB8C4 10%, #EAECC6 100%);
-  background: linear-gradient(40deg, #4CB8C4 10%, #EAECC6 100%);
+ # background: -o-linear-gradient(40deg, #4CB8C4 10%, #EAECC6 100%);
+ # background: linear-gradient(40deg, #4CB8C4 10%, #EAECC6 100%);
   font-family: 'Lato', sans-serif;
 }
 
@@ -81,14 +81,27 @@ p, ol, ul, td {
 
 #logo {
   float: left;
-  margin-right: 10px;
-  font-size: 1.1em;
+  margin-right: 250px;
+  font-size: 1.0em;
   color: #FF7F50;
+  display: inline;
   text-transform: uppercase;
+  letter-spacing: -1px;
+  font-weight: bold;
+}
+
+.header {
+  //float: right;
+  margin-left: 50px;
+  display: inline;
+  margin-left: 10px;
+  font-size: 1.1em;
   letter-spacing: -1px;
   padding-top: 1px;
   font-weight: bold;
+  text-decoration: none;
 }
+
 
 .index_row {
   padding: 2em;
@@ -195,10 +208,10 @@ input[type="email"], textarea {
   width: 100%;
   margin: .5em 2% 1em 0;
   display: inline-block;
-  outline: none;
+  outline: 1px;
   background: rgba(250, 250, 250, .4);
-  border: none;
   height: 40px;
+  box-shadow: 0 0 4px 4px rgba(0, 0, 0, .03);
   border-radius: 4px;
   padding: 1em 2em;
 }
@@ -209,7 +222,7 @@ input[type="text"], textarea {
   display: inline-block;
   outline: none;
   background: rgba(250, 250, 250, .4);
-  border: none;
+  box-shadow: 0 0 4px 4px rgba(0, 0, 0, .03);
   height: 40px;
   border-radius: 4px;
   padding: 1em 2em;
@@ -221,7 +234,7 @@ input[type="password"], textarea {
   display: inline-block;
   outline: none;
   background: rgba(250, 250, 250, .4);
-  border: none;
+  box-shadow: 0 0 3px 3px rgba(0, 0, 0, .03);
   height: 40px;
   border-radius: 4px;
   padding: 1em 2em;
@@ -241,7 +254,8 @@ input[type="submit"] {
   display: inline-block;
   transition: all .4s ease-in-out;
   cursor: pointer;
-  color: $dark;
+  background: $dark;
+  color: white;
   &:hover {
     background: $dark;
     color: white;

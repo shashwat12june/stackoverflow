@@ -23,7 +23,7 @@
 <tr>
   <td> <%= link_to "upvote",{ controller:'votes',action:'create', voteable_id:@question.id,
                               voteable_type:"Question", vote_type:1, question_id:@question.id},
-                   method: :post, remote:true %></td>
+                              method: :post, remote:true %></td>
   <br>
   <td> <%= link_to "down vote",{ controller:'votes',action:'create',
                                  voteable_id:@question.id, voteable_type:"Question",vote_type:-1,

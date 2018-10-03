@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  resources :users
-  resources :questions
-  resources :votes
-  resources :answers
+  resources :users, :except => [:new]
+  resources :questions, :except => [:new]
+  resources :votes, :only => [:create]
+  resources :answers, :except => [:new,:index]
 
   get  '/signup',  to: 'users#index'
   post '/signup', to: 'users#create'
@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
   post 'vote/create',  to: 'votes_controller#create'
 
-  get '*path',    to: 'users#errorView'
+  get '*path',    to: 'users#error_view'
 
   root 'sessions#new'
 end

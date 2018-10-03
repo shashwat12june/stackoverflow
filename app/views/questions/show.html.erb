@@ -10,7 +10,7 @@
 </h4>
 <br>
 <% if logged_in? && @question.user_id==current_user.id %>
-  <%= link_to "Edit", edit_question_path(id:@question.id)%>
+  <%= link_to "Edit", edit_question_path(id:@question.id)%> &emsp;
   <%= link_to "Delete", question_path(@question.id), method: :delete, data: {confirm: "are you sure?"}%>
 <%end %>
 
@@ -24,7 +24,7 @@
   <td> <%= link_to "upvote",{ controller:'votes',action:'create', voteable_id:@question.id,
                               voteable_type:"Question", vote_type:1, question_id:@question.id},
                               method: :post, remote:true %></td>
-  <br>
+  &emsp;
   <td> <%= link_to "down vote",{ controller:'votes',action:'create',
                                  voteable_id:@question.id, voteable_type:"Question",vote_type:-1,
                                  question_id:@question.id}, method: :post, remote:true %></td>
@@ -46,7 +46,7 @@
       <%= f.hidden_field :commentable_type, value:"Question" %>
       <%= f.hidden_field :commentable_id, value:@question.id %>
       <%= f.hidden_field :ques_id, value:@question.id %>
-      <%= f.text_field :comments, class: 'form-control' %>
+      <%= f.text_field :comments, class: 'comment_form'%>
       <%= f.submit "Add Comment", class: "btn btn-primary" %>
     <% end %>
   </div>
@@ -59,7 +59,7 @@
     <td><b>Answer: </b><%= ans.answer %></td>
     <br>
     <% if logged_in? && ans.user_id==current_user.id %>
-      <%= link_to "Edit", edit_answer_path(id:ans.id, question_id:@question.id)%>
+      <%= link_to "Edit", edit_answer_path(id:ans.id, question_id:@question.id)%> &emsp;
       <%= link_to "Delete", answer_path(ans.id, question_id:@question.id), method: :delete, data: {confirm: "are you sure?"}%>
     <%end %>
     <br>
@@ -69,7 +69,7 @@
     <h3>counts   :<%= render plain: vote_count%></h3>
 
   <tr>
-    <td> <%= link_to "upvote",{ controller:'votes',action:'create', voteable_id:ans.id, voteable_type:"Answer", vote_type:1, question_id:@question.id}, method: :post %></td>
+    <td> <%= link_to "upvote",{ controller:'votes',action:'create', voteable_id:ans.id, voteable_type:"Answer", vote_type:1, question_id:@question.id}, method: :post %></td> &emsp;
     <td> <%= link_to "down vote",{ controller:'votes',action:'create', voteable_id:ans.id, voteable_type:"Answer",vote_type:-1, question_id:@question.id}, method: :post %></td>
     <br>
   </tr>
@@ -116,3 +116,4 @@
     <% end %>
   </div>
 </div>
+<br>

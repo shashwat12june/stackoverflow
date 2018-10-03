@@ -26,7 +26,7 @@ class QuestionsController < ApplicationController
          end
       redirect_to home_path
     else
-      flash[:info] = " Question not saved"
+      flash[:info] = " Question not saved, Question might be duplicate."
       redirect_to home_path
     end
   end

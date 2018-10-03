@@ -89,7 +89,7 @@ class UsersController < ApplicationController
   end
 
 
-  def errorView
+  def error_view
     render plain: "Url not found"
   end
 

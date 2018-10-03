@@ -5,6 +5,7 @@ class VotesController < ApplicationController
 
   end
 
+
   def create
     if (params[:vote_type]=='1')
       upvote

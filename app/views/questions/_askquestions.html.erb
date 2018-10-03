@@ -4,10 +4,10 @@
     <%= form_for(:addQuestion, url:add_question_path) do |f| %>
 <tr>
       <%= f.text_field :questions, class: 'form-control', placeholder:"Enter your Question" %>
+     <%= f.text_field :tags, class: 'form-control', placeholder:"enter tags" %>
+  <br>
     <%= f.submit "Ask questions", class: "btn btn-primary" %>
       <br>
-      <br>
-      <%= f.text_field :tags, class: 'form-control', placeholder:"enter tags" %>
 </tr>
     <% end %>
   </div>

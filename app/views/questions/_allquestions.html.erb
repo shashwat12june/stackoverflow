@@ -3,7 +3,7 @@
 <% Question.all.each do |ques| %>
 <table>
   <tr>
-    <td>Question:<%=ques.id+1 %></td>
+    <td>Question:<%=ques.id+1 %> &emsp;</td>
     <td><%= link_to ques.question, {controller: 'questions', action:'show', id: ques.id} %></td>
   </tr>
 </table>

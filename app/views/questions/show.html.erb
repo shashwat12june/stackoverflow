@@ -1,6 +1,7 @@
 
 <h1>
-<%= render plain: @question.question %> </h1>
+<%= render plain: @question.question %></h1>
+ <p> <%= @question.created_at %></p>
   <br>
 <h4>
   tags :
@@ -56,7 +57,8 @@
 <% @question.answers.all.each do |ans| %>
   <br>
   <tr>
-    <td><b>Answer: </b><%= ans.answer %></td>
+    <h4> <td>Answer:  <%= ans.answer %></td></h4>
+    <p> <%= ans.created_at %></p>
     <br>
     <% if logged_in? && ans.user_id==current_user.id %>
       <%= link_to "Edit", edit_answer_path(id:ans.id, question_id:@question.id)%> &emsp;
@@ -87,7 +89,7 @@
     <br>
     <% ans.comments.all.each do |comment| %>
     <tr>
-      <td><b>comments:     </b><%= comment.comment %></td>
+      <td>comments:     <%= comment.comment %></td>
       <br>
     </tr>
     <br>

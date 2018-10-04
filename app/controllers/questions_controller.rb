@@ -39,7 +39,8 @@ class QuestionsController < ApplicationController
 
   def edit
     @question = Question.find(params[:id])
-    if !(logged_in? && current_user.id==@question.user_id)
+
+    unless (logged_in? && current_user.id == @question.user_id)
       render plain: 'invalid access'
     end
   end
@@ -63,11 +64,7 @@ class QuestionsController < ApplicationController
 
   def destroy
     @question = Question.find(params[:id])
-    if @question.destroy
-      redirect_to home_path
-    else
-       render 'show'
-    end
+     @question.destroy ? (redirect_to home_path) : (render 'show')
   end
 
 end

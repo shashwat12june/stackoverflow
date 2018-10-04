@@ -31,10 +31,6 @@ before_action :check_login, only: :new
 
 
   def check_login
-    if(logged_in?)
-      redirect_to home_path
-    else
-      render 'new'
-    end
+    (logged_in?) ? (redirect_to home_path) : (render 'new')
   end
 end

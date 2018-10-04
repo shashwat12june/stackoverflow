@@ -9,18 +9,18 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
-    if !@question
+    unless @question
       render json: {
           error: "Question with id #{params[:id]} not found."
       }, status: :not_found
     end
-
   end
 
 
   def add_question
-    @users_question = Question.new(status:"new", user_id: current_user.id, question: params[:addQuestion][:questions])
-    if @users_question.save
+    users_question = Question.new(status:"new", user_id: current_user.id, question: params[:addQuestion][:questions])
+
+    if users_question.save
       if !params[:addQuestion][:tags].nil?
          tag_service.add_tag
          end
@@ -47,10 +47,10 @@ class QuestionsController < ApplicationController
 
 
   def update
-    @question = Question.find(params[:id])
-    if @question.update_attributes(question: params[:question][:question])
+    question = Question.find(params[:id])
+    if question.update_attributes(question: params[:question][:question])
       flash[:success] = "Question updated"
-      redirect_to question_path(@question.id)
+      redirect_to question_path(question.id)
     else
       render 'edit'
     end
@@ -58,7 +58,8 @@ class QuestionsController < ApplicationController
 
 
   def get_params
-    @params = {users_question: @users_question, tag:params[:addQuestion][:tags]}
+    @params = {users_question: @users_question,
+               tag: params[:addQuestion][:tags]}
   end
 
 

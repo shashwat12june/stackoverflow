@@ -45,24 +45,24 @@ class VoteService
 
 
   def already_upvote?
-    user_exist? && find_value.vote_type == 1
+    user_already_voted? && find_value.vote_type == 1
   end
 
 
   def already_downvote?
-     user_exist? && find_value.vote_type == -1
+     user_already_voted? && find_value.vote_type == -1
   end
 
 
   def already_zero_state?
-    user_exist? && find_value.vote_type == 0
+    user_already_voted? && find_value.vote_type == 0
   end
 
 
   private
 
-  def user_exist?
-    Vote.where(user_id: @user_id, voteable_id: @voteable_id, voteable_type: @voteable_type).present?
+  def user_already_voted?
+    Vote.where(user_id: @user_id, voteable_id: @voteable_id, voteable_type: @voteable_type).exists?
   end
 
 
@@ -77,7 +77,7 @@ class VoteService
 
 
   def find_value
-    v = Vote.where(user_id: @user_id, voteable_id: @voteable_id, voteable_type: @voteable_type).first
+    v = Vote.find_by( user_id: @user_id, voteable_id: @voteable_id, voteable_type: @voteable_type)
   end
 
 end

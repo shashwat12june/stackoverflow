@@ -1,7 +1,7 @@
 
 <h1>
 <%= render plain: @question.question %></h1>
- <p> <%= @question.created_at %></p>
+<p> <%= @question.created_at %>  &emsp;  Question by:    <%= User.find(@question.user_id).first_name %></p>
   <br>
 <h4>
   tags :
@@ -35,7 +35,7 @@
 <h3>comments</h3>
 <% @question.comments.each do |comment| %>
   <tr>
-    <td>comment:    <%= comment.comment %></td>
+    <td> <%= User.find(comment.user_id).first_name %>: &emsp;  <%= comment.comment %></td>
     <br>
   </tr>
 <% end %>
@@ -58,7 +58,7 @@
   <br>
   <tr>
     <h4> <td>Answer:  <%= ans.answer %></td></h4>
-    <p> <%= ans.created_at %></p>
+    <p> <%= ans.created_at %>  &emsp;       answer by:    <%= User.find(ans.user_id).first_name %></p>
     <br>
     <% if logged_in? && ans.user_id==current_user.id %>
       <%= link_to "Edit", edit_answer_path(id:ans.id, question_id:@question.id)%> &emsp;
@@ -75,12 +75,14 @@
     <td> <%= link_to "down vote",{ controller:'votes',action:'create', voteable_id:ans.id, voteable_type:"Answer",vote_type:-1, question_id:@question.id}, method: :post %></td>
     <br>
   </tr>
+
     <td>
     <% if ans.status=="accepted" %>
       <%= render plain: "Accepted" %>
     <%end %>
      </td>
     <td>
+
       <% if logged_in? && @question.user_id==current_user.id %>
         <%= link_to "Accept it",{controller: 'answers', action:'accept_answer', id: ans.id, question_id:@question.id} %>
       <%end %>
@@ -89,7 +91,7 @@
     <br>
     <% ans.comments.all.each do |comment| %>
     <tr>
-      <td>comments:     <%= comment.comment %></td>
+      <td> <%= User.find(comment.user_id).first_name%>: &emsp;  <%= comment.comment %></td>
       <br>
     </tr>
     <br>

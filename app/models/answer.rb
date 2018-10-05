@@ -1,9 +1,10 @@
 class Answer < ApplicationRecord
 
   include Commentable
+  include Votable
+
   belongs_to :question
   belongs_to :user
-  has_many :votes, as: :voteable
   has_many :answer_question_tags, as: :tagable
 
   enum status: [:accepted, :notaccepted]

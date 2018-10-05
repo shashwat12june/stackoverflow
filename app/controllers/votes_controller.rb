@@ -7,6 +7,12 @@ class VotesController < ApplicationController
 
 
   def create
+
+    @votable_id = params[:voteable_id],
+    @vote_type = params[:vote_type]
+    @user_id = current_user.id
+    @votable_type = params[:voteable_type]
+
     if (params[:vote_type]=='1')
       upvote
       redirect_to question_path(params[:question_id])
@@ -18,7 +24,7 @@ class VotesController < ApplicationController
 
 
   def vote_service
-     VoteService.new(getParams)
+     VoteService.new( @votable_id, @votable_type, @user_id, @vote_type )
   end
 
 

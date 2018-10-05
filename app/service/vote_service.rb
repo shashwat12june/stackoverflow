@@ -1,10 +1,12 @@
 class VoteService
 
-  def initialize(params)
-    @vote_type = params[:vote_type]
-    @voteable_id = params[:voteable_id]
-    @voteable_type = params[:voteable_type]
-    @user_id = params[:user_id]
+  attr_accessor :votable_id, :votable_type, :user, :vote_type
+
+  def initialize( votable_id, votable_type, user, vote_type )
+    self.votable_id = votable_id
+    self.votable_type = votable_type
+    self.user = user
+    self.vote_type = vote_type
   end
 
 
@@ -62,12 +64,13 @@ class VoteService
   private
 
   def user_already_voted?
-    Vote.where(user_id: @user_id, voteable_id: @voteable_id, voteable_type: @voteable_type).exists?
+    Vote.where(user_id: user, voteable_id: votable_id, voteable_type: votable_type).exists?
   end
 
 
   def cast_vote(vote)
-    @vote = Vote.create!(user_id: @user_id, voteable_id: @voteable_id, vote_type: vote, voteable_type: @voteable_type)
+    @vote = Vote.create!(user_id: user, voteable_id: votable_id, vote_type: vote, voteable_type: votable_type)
+    # @vote = votable.create!( user_id: user, vote_type: vote_type )
   end
 
 
@@ -77,7 +80,7 @@ class VoteService
 
 
   def find_value
-    v = Vote.find_by( user_id: @user_id, voteable_id: @voteable_id, voteable_type: @voteable_type)
+    v = Vote.find_by( user_id: user, voteable_id: votable_id, voteable_type: votable_type)
   end
 
 end

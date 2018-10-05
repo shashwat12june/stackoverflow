@@ -4,10 +4,10 @@ one:
   user: one
   vote_type: 1
   voteable: one
-  voteable_type: Voteable
+  voteable_type: Votable
 
 two:
   user: two
   vote_type: 1
   voteable: two
-  voteable_type: Voteable
+  voteable_type: Votable

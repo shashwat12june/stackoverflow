@@ -7,7 +7,7 @@ class User < ApplicationRecord
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: true
   UniquenessValidator
 
-  validates :first_name, presence: true
+  validates :first_name, presence: true, length: { minimum: 3 }
 
   VALID_PHONE_NUMBER_REGEX = /[0-9]*/
   validates :phone_number, uniqueness: true, presence: true, length: {is: 10},

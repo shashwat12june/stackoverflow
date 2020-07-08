@@ -1,18 +1,16 @@
 class UsersController < ApplicationController
-
   before_action :logged_in_user, only: [ :edit, :update, :destroy, :show]
 
   def index
     @user = User.new
   end
 
-
   def create
     @user = User.new(user_params)
     respond_to do |format|
       if @user.save
-        flash[:success] = "Welcome to the StackOverflow!"
-        format.html { redirect_to login_path, notice: 'User was successfully created.' }
+        flash[:success] = 'Welcome to the StackOverflow!'.freeze
+        format.html { redirect_to login_path, notice: 'User was successfully created.'.freeze }
         format.json { render :index, status: :created, location: @user }
       else
         format.html { render :index }
@@ -20,7 +18,6 @@ class UsersController < ApplicationController
       end
     end
   end
-
 
   def show
     @user=User.find(params[:id])
@@ -31,7 +28,6 @@ class UsersController < ApplicationController
     end
   end
 
-
   def home
     if  params[:search]
       @question = Question.where("question LIKE ?", "%#{params[:search][:search]}%").paginate(page: params[:page], per_page:20)
@@ -40,7 +36,6 @@ class UsersController < ApplicationController
       @question = Question.paginate(page: params[:page], per_page:20)
     end
   end
-
 
   def search(str)
     @related_questions = []
@@ -54,24 +49,21 @@ class UsersController < ApplicationController
         end
       end
     end
-    #debugger
-    return @related_questions
+    @related_questions
   end
-
 
   def edit
     if (logged_in? && current_user.id==params[:id].to_i)
-      @user=User.find(params[:id])
+      @user = User.find(params[:id])
     else
-      render plain: 'invalid access'
+      render plain: 'invalid access'.freeze
     end
   end
-
 
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
-      flash[:success] = "Profile updated"
+      flash[:success] = 'Profile updated'.freeze
       @sessions = Session.where(user_id: @user.id)
       @sessions.each do |session|
         session.update(status:0)
@@ -79,21 +71,20 @@ class UsersController < ApplicationController
       log_out
       redirect_to root_path
     else
-      render 'edit'
+      render 'edit'.freeze
     end
   end
 
-
   def user_params
-    params.require(:user).permit(:first_name, :last_name,
-                                 :email, :phone_number,
-                                 :password, :password_confirmation)
+    params.require(:user).permit(:first_name,
+                                 :last_name,
+                                 :email,
+                                 :phone_number,
+                                 :password,
+                                 :password_confirmation)
   end
-
 
   def error_view
-    render plain: "Url not found"
+    render plain: 'Url not found'.freeze
   end
-
-
 end

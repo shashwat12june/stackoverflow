@@ -1,24 +1,19 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+StackOverFlow is a ruby on rails project, Entire frontend, and backend is done in ROR. 
+It has all basic functionality that stackoverflow provides, such as Login/Signup, Ask Questions, Comments on question
+and answers, upvote and downvote.
+su
 
-Things you may want to cover:
+This project helps beginners to create an application with the use of ruby erb, services, error handlers, concerns. 
+It also demonstrates the interaction between Model-Views-Controller.
+It also helps in understanding database base schemas and rails associations.
 
-* Ruby version
+This Project contains sample Spec to demonstrate working of Unit test cases and use of factories.
 
-* System dependencies
+Setup Requires: 
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+-> ruby 2.4.3
+-> Rails 5.2.1
+-> rails db:migrate
+-> rails db:seed

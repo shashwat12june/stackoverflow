@@ -1,5 +1,4 @@
 class TagService
-
   def initialize(params)
    @tag = params[:tag]
    @question = params[:users_question]
@@ -16,12 +15,10 @@ class TagService
     end
   end
 
-
   def add_question_to_existing_tag(tag)
     t = Tag.find_by(tag_name:tag)
     t.questions << @question
   end
-
 
   def create_new_tag(tag)
     t= Tag.new(tag_name:tag)
@@ -29,9 +26,7 @@ class TagService
     t.questions << @question
   end
 
-
   def check_if_tag_exists?(tag)
     Tag.where(tag_name:tag).present?
   end
-
 end

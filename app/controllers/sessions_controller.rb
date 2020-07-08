@@ -1,12 +1,12 @@
 class SessionsController < ApplicationController
-before_action :check_login, only: :new
+  before_action :check_login, only: :new
 
   def new
   end
 
   def generate_token(id)
     @salt = BCrypt::Engine.generate_salt
-    @token= BCrypt::Engine.hash_secret(id, @salt)
+    @token = BCrypt::Engine.hash_secret(id, @salt)
   end
 
   def create
@@ -18,17 +18,15 @@ before_action :check_login, only: :new
       session_token.save!
       redirect_to home_path
     else
-      flash[:danger] = 'Invalid email/password combination'
-      render 'new'
+      flash[:danger] = 'Invalid email/password combination'.freeze
+      render 'new'.freeze
     end
   end
-
 
   def destroy
     log_out
     redirect_to root_url
   end
-
 
   def check_login
     (logged_in?) ? (redirect_to home_path) : (render 'new')

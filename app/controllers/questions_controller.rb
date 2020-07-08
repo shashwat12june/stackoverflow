@@ -1,21 +1,13 @@
 class QuestionsController < ApplicationController
   before_action :logged_in_user, only: [ :add_question]
 
-
   def index
     @question = Question.paginate(page: params[:page])
   end
 
-
   def show
     @question = Question.find(params[:id])
-    unless @question
-      render json: {
-          error: "Question with id #{params[:id]} not found."
-      }, status: :not_found
-    end
   end
-
 
   def add_question
     users_question = Question.new(status:"new", user_id: current_user.id, question: params[:addQuestion][:questions])
@@ -23,7 +15,7 @@ class QuestionsController < ApplicationController
     if users_question.save
       if !params[:addQuestion][:tags].nil?
          tag_service.add_tag
-         end
+      end
       redirect_to home_path
     else
       flash[:info] = " Question not saved, Question might be duplicate."
@@ -31,11 +23,9 @@ class QuestionsController < ApplicationController
     end
   end
 
-
   def tag_service
     TagService.new(get_params)
   end
-
 
   def edit
     @question = Question.find(params[:id])
@@ -44,7 +34,6 @@ class QuestionsController < ApplicationController
       render plain: 'invalid access'
     end
   end
-
 
   def update
     question = Question.find(params[:id])
@@ -56,16 +45,13 @@ class QuestionsController < ApplicationController
     end
   end
 
-
   def get_params
     @params = {users_question: @users_question,
                tag: params[:addQuestion][:tags]}
   end
 
-
   def destroy
     @question = Question.find(params[:id])
-     @question.destroy ? (redirect_to home_path) : (render 'show')
+    @question.destroy ? (redirect_to home_path) : (render 'show')
   end
-
 end

@@ -1,7 +1,5 @@
 class AnswersController < ApplicationController
-
   before_action :logged_in_user, only: [ :create, :accept_answer]
-
 
   def create
     @answer = Answer.new(answer: params[:addAnswer][:answer],
@@ -10,15 +8,14 @@ class AnswersController < ApplicationController
     if @answer.save
       redirect_to question_path(params[:addAnswer][:ques_id])
     else
-      flash.notice = "Answer not saved"
+      flash.notice = 'Answer not saved'.freeze
       redirect_to question_path(params[:addAnswer][:ques_id])
     end
   end
 
-
   def accept_answer
     @answer = Answer.find(params[:id])
-    if @answer.status=="accepted"
+    if @answer.status == 'accepted'.freeze
        @answer.update(status:1)
     else
        @answer.update(status:0)
@@ -26,35 +23,30 @@ class AnswersController < ApplicationController
     redirect_to question_path(params[:question_id])
   end
 
-
   def edit
     @answer = Answer.find(params[:id])
     @question = Question.find(params[:question_id])
     unless (logged_in? && current_user.id==@answer.user_id)
-      render plain: 'invalid access'
+      render plain: 'invalid access'.freeze
     end
-
   end
-
 
   def update
     @answer = Answer.find(params[:id])
     if @answer.update_attributes(answer: params[:answer][:answer])
-      flash[:success] = "Answer updated"
+      flash[:success] = 'Answer updated'.freeze
       redirect_to question_path(params[:answer][:question_id])
     else
-      render 'edit'
+      render 'edit'.freeze
     end
   end
-
 
   def destroy
     @answer = Answer.find(params[:id])
     if @answer.destroy
       redirect_to question_path(params[:question_id])
     else
-      render 'show'
+      render 'show'.freeze
     end
   end
-
 end

@@ -1,5 +1,4 @@
 class Question < ApplicationRecord
-
   include Commentable
   include Votable
 

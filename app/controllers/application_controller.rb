@@ -1,15 +1,14 @@
 class ApplicationController < ActionController::Base
-
   include SessionsHelper
   protect_from_forgery with: :exception
-  include Error::ErrorHandler
-
+  include Concerns::Errors
+  include Concerns::ErrorHandler
 
   private
 
   def logged_in_user
     unless logged_in?
-      flash[:danger] = "Please log in."
+      flash[:danger] = 'Please login'.freeze
       redirect_to login_url
     end end
 
@@ -18,6 +17,4 @@ class ApplicationController < ActionController::Base
       log_out
     end
   end
-
-
 end

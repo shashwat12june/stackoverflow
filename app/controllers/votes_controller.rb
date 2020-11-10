@@ -19,10 +19,6 @@ class VotesController < ApplicationController
     end
   end
 
-  def vote_service
-     VoteService.new(@votable_id, @votable_type, @user_id, @vote_type)
-  end
-
   def upvote
     flash.notice = if vote_service.already_upvote?
                      'already upvoted'.freeze
@@ -36,12 +32,18 @@ class VotesController < ApplicationController
     flash.notice = if vote_service.already_downvote?
                      'already downvoted'.freeze
                    else
-                    vote_service.downvote
-                    'downvoted successfully'.freeze
+                     vote_service.downvote
+                     'downvoted successfully'.freeze
                    end
   end
 
   def getParams
     @params = {}
+  end
+
+  private
+
+  def vote_service
+    @vote_service ||= VoteService.new(@votable_id, @votable_type, @user_id, @vote_type)
   end
 end
